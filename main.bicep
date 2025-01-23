@@ -16,7 +16,7 @@ param adminPassword string
 @description('The number of nodes for the cluster.')
 @minValue(3)
 @maxValue(50)
-param aksAgentCount int = 2
+param aksAgentCount int = 3
 
 @description('The size of the VM instances')
 param aksAgentVMSize string = 'BASIC_A0'
