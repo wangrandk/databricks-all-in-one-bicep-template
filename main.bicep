@@ -16,10 +16,10 @@ param adminPassword string
 @description('The number of nodes for the cluster.')
 @minValue(3)
 @maxValue(50)
-param aksAgentCount int = 3
+param aksAgentCount int = 2
 
 @description('The size of the VM instances')
-param aksAgentVMSize string = 'Standard_A4_v2'
+param aksAgentVMSize string = 'BASIC_A0'
 
 var uniqueSubString = '${uniqueString(guid(subscription().subscriptionId))}'
 var uString = '${prefix}${uniqueSubString}'
@@ -49,7 +49,7 @@ var eventHubName = eHNameSpace
 var managedIdentityName = '${substring(uString, 0, 6)}Identity'
 
 @description('Default location of the resources')
-param location string = 'southeastasia'
+param location string = 'westeurope'
 @description('')
 param hubVnetName string = 'hubvnet'
 @description('')
@@ -76,32 +76,32 @@ param AksSubnetCidr string = '10.179.128.0/18'
 @description('')
 param PrivateLinkSubnetCidr string = '10.179.192.0/18'
 
-@description('Southeastasia ADB webapp address')
+@description('westeurope ADB webapp address')
 param webappDestinationAddresses array = [
   '52.187.145.107/32'
   '52.187.0.85/32'
 ]
-@description('Southeastasia ADB log blob')
+@description('westeurope ADB log blob')
 param logBlobstorageDomains array = [
   'dblogprodseasia.blob.${environment().suffixes.storage}'
 ]
-@description('Southeastasia ADB extended ip')
+@description('westeurope ADB extended ip')
 param extendedInfraIp array = [
   '20.195.104.64/28'
 ]
-@description('Southeastasia SCC relay Domain')
+@description('westeurope SCC relay Domain')
 param sccReplayDomain array = [
-  'tunnel.southeastasia.azuredatabricks.net'
+  'tunnel.westeurope.azuredatabricks.net'
 ]
-@description('Southeastasia SDB metastore')
+@description('westeurope SDB metastore')
 param metastoreDomains array = [
-  'consolidated-southeastasia-prod-metastore.mysql.database.azure.com'
+  'consolidated-westeurope-prod-metastore.mysql.database.azure.com'
 ]
-@description('Southeastasia EventHub endpoint')
+@description('westeurope EventHub endpoint')
 param eventHubEndpointDomain array = [
-  'prod-southeastasia-observabilityeventhubs.servicebus.windows.net'
+  'prod-westeurope-observabilityeventhubs.servicebus.windows.net'
 ]
-@description('Southeastasia Artifacts Blob')
+@description('westeurope Artifacts Blob')
 param artifactBlobStoragePrimaryDomains array = [
   'dbartifactsprodseap.blob.${environment().suffixes.storage}'
   'arprodseapa1.blob.${environment().suffixes.storage}'
@@ -299,23 +299,23 @@ module AksForAml './aks/aks-for-aml.template.bicep' = {
   }
 }
 
-// output resourceGroupName string = rg.name
-// output keyVaultName string = keyVaultName
-// output adbWorkspaceName string = adbWorkspaceName
-// output storageAccountName string = storageAccountName
-// output storageKey1 string = adlsGen2.outputs.key1
-// output storageKey2 string = adlsGen2.outputs.key2
-// output databricksWksp string = adb.outputs.databricks_workspace_id
-// output databricks_workspaceUrl string = adb.outputs.databricks_workspaceUrl
-// output keyvault_id string = keyVault.outputs.keyvault_id
-// output keyvault_uri string = keyVault.outputs.keyvault_uri
-// output logAnalyticsWkspId string = loganalytics.outputs.logAnalyticsWkspId
-// output logAnalyticsprimarySharedKey string = loganalytics.outputs.primarySharedKey
-// output logAnalyticssecondarySharedKey string = loganalytics.outputs.secondarySharedKey
-// output eHNamespaceId string = eventHubLogging.outputs.eHNamespaceId
-// output eHubNameId string = eventHubLogging.outputs.eHubNameId
-// output eHAuthRulesId string = eventHubLogging.outputs.eHAuthRulesId
-// output eHPConnString string = eventHubLogging.outputs.eHPConnString
-// output dsOutputs object = createDatabricksCluster.outputs.patOutput
-// output adbCluster object = createDatabricksCluster.outputs.adbCluster
-// output amlProperties object = aml.outputs.amlProperties
+output resourceGroupName string = rg.name
+output keyVaultName string = keyVaultName
+output adbWorkspaceName string = adbWorkspaceName
+output storageAccountName string = storageAccountName
+output storageKey1 string = adlsGen2.outputs.key1
+output storageKey2 string = adlsGen2.outputs.key2
+output databricksWksp string = adb.outputs.databricks_workspace_id
+output databricks_workspaceUrl string = adb.outputs.databricks_workspaceUrl
+output keyvault_id string = keyVault.outputs.keyvault_id
+output keyvault_uri string = keyVault.outputs.keyvault_uri
+output logAnalyticsWkspId string = loganalytics.outputs.logAnalyticsWkspId
+output logAnalyticsprimarySharedKey string = loganalytics.outputs.primarySharedKey
+output logAnalyticssecondarySharedKey string = loganalytics.outputs.secondarySharedKey
+output eHNamespaceId string = eventHubLogging.outputs.eHNamespaceId
+output eHubNameId string = eventHubLogging.outputs.eHubNameId
+output eHAuthRulesId string = eventHubLogging.outputs.eHAuthRulesId
+output eHPConnString string = eventHubLogging.outputs.eHPConnString
+output dsOutputs object = createDatabricksCluster.outputs.patOutput
+output adbCluster object = createDatabricksCluster.outputs.adbCluster
+output amlProperties object = aml.outputs.amlProperties
